@@ -5,4 +5,10 @@ Rails.application.routes.draw do
       sessions:            'users/sessions',
       registrations:       'users/registrations',
     } 
+
+  resources :fps, only: [:show] do
+    collection do
+      get 'search'
+    end
+  end
 end
