@@ -6,4 +6,12 @@ class Reservation < ApplicationRecord
   validates :guest_id, presence: true
   validates :start_at, presence: true
   validates :reservation_date, presence: true
+
+  after_create :set_end_at
+
+  def set_end_at
+    frame_min  = (60 * 30)
+    self.end_at = (Time.parse(self.start_at) + frame_min).strftime("%H:%M")
+    save!
+  end
 end
