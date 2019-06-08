@@ -34,6 +34,8 @@ class ReservationsController < ApplicationController
   end
 
   def set_time
+    @tiemes = business_time(Time.parse(params['select_date']))
+    render json: @tiemes
   end
 
   private
