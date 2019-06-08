@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :dashboard, only: [:index]
   resources :reservations do
     collection do
       get 'set_time'
     end
   end
+
   root 'welcome#index'
   devise_for :users,
     controllers: {
