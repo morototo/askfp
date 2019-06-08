@@ -7,4 +7,4 @@
           p
             | FP自己紹介
         .card-action
-          = link_to "このFPに相談する", new_reservation_path(:fp_id => fpu.id)
+          = link_to "このFPに相談する", new_reservation_path(:fp_id => fpu.id, :guest_id => current_user.id)
