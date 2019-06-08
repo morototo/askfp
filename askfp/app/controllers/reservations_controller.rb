@@ -14,7 +14,7 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
-    @reservation = Reservation.new
+    @reservation = Reservation.new(fp_id: new_params[:fp_id], guest_id: current_user.id)
   end
 
   # GET /reservations/1/edit
@@ -70,5 +70,9 @@ class ReservationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
       params.fetch(:reservation, {})
+    end
+
+    def new_params
+      params.permit(:fp_id)
     end
 end
