@@ -7,7 +7,20 @@ class Reservation < ApplicationRecord
   validates :start_at, presence: true
   validates :reservation_date, presence: true
 
+  scope :reserved, -> fp_id { where(fp_id: fp_id) }
+  scope :target_date, -> target_date { where(reservation_date: target_date) }
+
   after_create :set_end_at
+
+  def self.get_free_reservation_time(time, fp_id, target_date)
+    except_reservation_time = []
+    reserved_times = Reservation.target_date(target_date).reserved(fp_id).pluck(:start_at)
+    time.each do |t|
+      next if reserved_times.include?(t[0])
+      except_reservation_time << t
+    end
+    except_reservation_time.uniq
+  end
 
   def set_end_at
     frame_min  = (60 * 30)
