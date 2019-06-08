@@ -6,7 +6,10 @@ nav
         li
           = link_to "TOP", root_path
         li
-          = link_to "FPを探す", search_fps_path
+          = link_to "マイページ", dashboard_index_path
+        - if current_user.is_guest?
+          li
+            = link_to "FPを探す", search_fps_path
         li
           = link_to "ログアウト", destroy_user_session_path, method: :delete
       - else
