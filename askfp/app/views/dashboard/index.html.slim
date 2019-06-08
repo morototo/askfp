@@ -1,0 +1,4 @@
+- if current_user.is_fp?
+  = render partial: 'fp_dashboard'
+- elsif current_user.is_guest?
+  = render partial: 'guest_dashboard'
