@@ -1,6 +1,13 @@
 = simple_form_for(reservation) do |f|
   = f.hidden_field :fp_id, value: reservation.fp_id
   = f.hidden_field :guest_id, value: reservation.guest_id
+  .request-date
+    h5 予約する日付
+    = f.text_field :reservation_date, class: 'date-picker'
+
+  .request-time
+    h5 予約する時間帯
+    = f.select :start_at, business_time(Time.now)
 
   = f.submit "このFPに予約する", class: "waves-effect waves-light btn"
   = link_to '戻る', search_fps_path, class: "waves-effect waves-light btn"
