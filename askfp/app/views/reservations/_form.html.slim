@@ -1,9 +1,7 @@
-= form_for @reservation do |f|
-  - if @reservation.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@reservation.errors.count, "error")} prohibited this reservation from being saved:"
-      ul
-        - @reservation.errors.full_messages.each do |message|
-          li = message
+= simple_form_for(reservation) do |f|
+  = f.hidden_field :fp_id, value: reservation.fp_id
+  = f.hidden_field :guest_id, value: reservation.guest_id
 
-  .actions = f.submit
+  = f.submit "このFPに予約する", class: "waves-effect waves-light btn"
+  = link_to '戻る', search_fps_path, class: "waves-effect waves-light btn"
+
