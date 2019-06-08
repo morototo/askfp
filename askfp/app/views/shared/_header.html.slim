@@ -6,7 +6,7 @@ nav
         li
           = link_to "TOP", root_path
         li
-          = link_to "FPを探す", "#"
+          = link_to "FPを探す", search_fps_path
         li
           = link_to "ログアウト", destroy_user_session_path, method: :delete
       - else
