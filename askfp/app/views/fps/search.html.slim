@@ -3,8 +3,8 @@
     - @fp_user.each do |fpu|
       .card.blue-grey.darken-1
         .card-content.white-text
-          span.card-title FP名前
+          span.card-title = fpu.profile.decorate.name
           p
-            | FP自己紹介
+            = fpu.profile.decorate.self_introduction
         .card-action
           = link_to "このFPに相談する", new_reservation_path(:fp_id => fpu.id, :guest_id => current_user.id)
