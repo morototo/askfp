@@ -24,11 +24,9 @@ class ReservationsController < ApplicationController
 
     respond_to do |format|
       if @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
-        format.json { render :show, status: :created, location: @reservation }
+        format.html { redirect_to dashboard_index_path, notice: '予約が完了しました。' }
       else
-        format.html { render :new }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        format.html { render :new, alert: '予約出来ませんでした。再度お試し下さい。' }
       end
     end
   end
