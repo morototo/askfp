@@ -14,17 +14,13 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
-    @reservation = Reservation.new
-  end
-
-  # GET /reservations/1/edit
-  def edit
+    @reservation = Reservation.new(new_params)
   end
 
   # POST /reservations
   # POST /reservations.json
   def create
-    @reservation = Reservation.new(reservation_params)
+    @reservation = Reservation.new(create_params)
 
     respond_to do |format|
       if @reservation.save
@@ -37,28 +33,10 @@ class ReservationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /reservations/1
-  # PATCH/PUT /reservations/1.json
-  def update
-    respond_to do |format|
-      if @reservation.update(reservation_params)
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reservation }
-      else
-        format.html { render :edit }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /reservations/1
-  # DELETE /reservations/1.json
-  def destroy
-    @reservation.destroy
-    respond_to do |format|
-      format.html { redirect_to reservations_url, notice: 'Reservation was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  def set_time
+    @tiemes = business_time(Time.parse(params['select_date']))
+    @tiemes = Reservation.get_free_reservation_time(@tiemes, params[:fp_id], Time.parse(params['select_date']))
+    render json: @tiemes
   end
 
   private
@@ -68,7 +46,11 @@ class ReservationsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def reservation_params
-      params.fetch(:reservation, {})
+    def create_params
+      params.require(:reservation).permit(:fp_id, :guest_id, :start_at, :end_at, :reservation_date)
+    end
+
+    def new_params
+      params.permit(:fp_id, :guest_id)
     end
 end

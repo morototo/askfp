@@ -14,4 +14,7 @@
  *= require_self
  */
 
+ @impott 'jquery-ui/datepicker';
  @import 'materialize';
+
+ @import 'reservations';
