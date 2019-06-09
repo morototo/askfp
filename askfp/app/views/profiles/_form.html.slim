@@ -1,8 +1,11 @@
 = simple_form_for(@profile) do |f|
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  .row
+    h5 名前
+    = f.input_field :name
 
-  .form-inputs
+  .row
+    h5 自己紹介
+    = f.input_field :self_introduction
 
-  .form-actions
-    = f.button :submit
+  = f.submit "プロフィールを変更する", class: "waves-effect waves-light btn"
+

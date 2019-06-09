@@ -41,12 +41,10 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
+      if @profile.update(update_params)
+        format.html { redirect_to dashboard_index_path, notice: 'プロフィールを変更しました。' }
       else
         format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,5 +68,9 @@ class ProfilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
       params.fetch(:profile, {})
+    end
+
+    def update_params
+      params.require(:profile).permit(:name, :self_introduction)
     end
 end
