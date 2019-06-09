@@ -1,4 +1,4 @@
-$ ->
+ready = ->
   replaceSelectOptions = ($select, results) ->
     $select.html $('<option>')
     $.each results, ->
@@ -21,5 +21,6 @@ $ ->
         success: (times)->
           replaceSelectOptions($selectChildren, times)
       return
-
   );
+$(document).ready(ready)
+$(document).on('turbolinks:load', ready)
