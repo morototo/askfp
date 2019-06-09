@@ -10,6 +10,7 @@ class ReservationsController < ApplicationController
   # GET /reservations/1
   # GET /reservations/1.json
   def show
+    @reservations = current_user.is_fp? ? Reservation.reserved(current_user.id) : current_user.reservations
   end
 
   # GET /reservations/new

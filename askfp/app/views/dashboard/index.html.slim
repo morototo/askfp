@@ -1,4 +1,5 @@
-- if current_user.is_fp?
-  = render partial: 'fp_dashboard'
-- elsif current_user.is_guest?
-  = render partial: 'guest_dashboard'
+ul
+  li
+    = link_to "予約一覧", reservations_path
+  li
+    = link_to "プロフィール", "#"
