@@ -1,7 +1,8 @@
 version: '3'
 services:
   askfp:
-    image: askfp:1.0
+    build: ./askfp
+    image: ruby:2.6.3
     container_name: askfp
     hostname: docker_askfp
     ports:
@@ -10,15 +11,21 @@ services:
       askfp_net:
         ipv4_address: 172.20.0.2
     volumes:
-     - /Users/kazukimorokado/workspace/askfp/:/home/git/askfp/:z
+     - /Users/kazukimorokado/workspace/askfp/askfp/:/home/git/askfp/:z
     depends_on:
      - mysqldb
     tty: true
     restart: always
   mysqldb:
-    image: mysql
+    build: ./mysql
+    image: mysql:5.7
     container_name: mysqldb
     hostname: docker_mysqldb
+    environment:
+      MYSQL_DATABASE: askfp_development
+      MYSQL_USER: askfp
+      MYSQL_PASSWORD: askfp_password
+      MYSQL_ROOT_PASSWORD: askfp_rootpassword
     ports:
      - "3306:3306"
     networks:
