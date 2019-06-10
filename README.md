@@ -26,7 +26,8 @@ c55ee8703e64        mysql:5.7           "docker-entrypoint.s…"   42 seconds ag
 $ docker exec -it askfp /bin/bash
 $ cd /home/git/askfp
 $ bundle install
-$ rails s # Rails 起動
+$ bundle exec rake db:migrate
+$ rails s -b 0.0.0.0 # Rails 起動
 ```
 
 ブラウザにてlocalhost:3000でRailsが表示されるか確認
