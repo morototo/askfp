@@ -1,0 +1,35 @@
+version: '3'
+services:
+  askfp:
+    image: askfp:1.0
+    container_name: askfp
+    hostname: docker_askfp
+    ports:
+     - "3000:3000"
+    networks:
+      askfp_net:
+        ipv4_address: 172.20.0.2
+    volumes:
+     - /Users/kazukimorokado/workspace/askfp/:/home/git/askfp/:z
+    depends_on:
+     - mysqldb
+    tty: true
+    restart: always
+  mysqldb:
+    image: mysql
+    container_name: mysqldb
+    hostname: docker_mysqldb
+    ports:
+     - "3306:3306"
+    networks:
+      askfp_net:
+        ipv4_address: 172.20.0.3
+    restart: always
+networks:
+  askfp_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.20.0.1/24
+        # gateway: 172.20.0.1
