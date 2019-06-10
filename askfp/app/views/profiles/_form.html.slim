@@ -1,0 +1,11 @@
+= simple_form_for(@profile) do |f|
+  .row
+    h5 名前
+    = f.input_field :name
+
+  .row
+    h5 自己紹介
+    = f.input_field :self_introduction
+
+  = f.submit "プロフィールを変更する", class: "waves-effect waves-light btn"
+
