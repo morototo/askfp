@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_06_09_085222) do
 
-  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", default: ""
     t.text "self_introduction"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_06_09_085222) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "fp_id"
     t.bigint "guest_id"
     t.string "start_at"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_06_09_085222) do
     t.index ["guest_id"], name: "index_reservations_on_guest_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
