@@ -22,6 +22,7 @@ gem 'jquery-ui-rails'
 gem 'simple_form'
 gem 'active_decorator'
 gem 'draper'
+gem 'seed-fu'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
