@@ -1,0 +1,2 @@
+class FpNgTimeFrame < ApplicationRecord
+end
