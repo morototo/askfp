@@ -11,6 +11,7 @@ class User < ApplicationRecord
   scope :guest_user, -> { where(user_type: "guest") }
 
   after_create :create_profile
+  after_create :create_fp_ng_time_frames
 
   def is_fp?
     self.user_type == "fp"
@@ -22,5 +23,13 @@ class User < ApplicationRecord
 
   def create_profile
     Profile.create(user_id: self.id)
+  end
+
+  def create_fp_ng_time_frames
+    fp_ng_time_frames = []
+    TimeFrame.all.each do |time_frame|
+      fp_ng_time_frames << FpNgTimeFrame.new(user_id: self.id, time_frame_id: time_frame.id)
+    end
+    FpNgTimeFrame.import fp_ng_time_frames
   end
 end
