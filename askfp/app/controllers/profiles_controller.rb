@@ -19,7 +19,6 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-    @profile_registration_form = ProfileForm.new()
   end
 
   # POST /profiles
