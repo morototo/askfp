@@ -1,5 +1,24 @@
 version: '3'
 services:
+  mysqldb:
+    build: ./mysql
+    image: mysql:5.7
+    container_name: mysqldb
+    hostname: docker_mysqldb
+    environment:
+      MYSQL_DATABASE: askfp_development
+      MYSQL_USER: askfp
+      MYSQL_PASSWORD: askfp_password
+      MYSQL_ROOT_PASSWORD: askfp_rootpassword
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+    - ./mysql/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+     - "3306:3306"
+    networks:
+      askfp_net:
+        ipv4_address: 172.20.0.3
+    restart: always
   askfp:
     build: ./askfp
     image: ruby:2.6.3
@@ -15,22 +34,6 @@ services:
     depends_on:
      - mysqldb
     tty: true
-    restart: always
-  mysqldb:
-    build: ./mysql
-    image: mysql:5.7
-    container_name: mysqldb
-    hostname: docker_mysqldb
-    environment:
-      MYSQL_DATABASE: askfp_development
-      MYSQL_USER: askfp
-      MYSQL_PASSWORD: askfp_password
-      MYSQL_ROOT_PASSWORD: askfp_rootpassword
-    ports:
-     - "3306:3306"
-    networks:
-      askfp_net:
-        ipv4_address: 172.20.0.3
     restart: always
 networks:
   askfp_net:
