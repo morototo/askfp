@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :fp_ng_time_frames, only: [:index, :create]
   resources :profiles
   resources :dashboard, only: [:index]
   resources :reservations do
