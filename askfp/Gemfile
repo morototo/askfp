@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'active_decorator'
 gem 'draper'
 gem 'seed-fu'
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
