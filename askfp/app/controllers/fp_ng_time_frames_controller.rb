@@ -1,4 +1,5 @@
 class FpNgTimeFramesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @fp_ng_time_frames = FpNgTimeFrame.mine(current_user)
     @timefarames = TimeFrame.all
