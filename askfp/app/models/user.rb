@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :reservations, foreign_key: "fp_id" , dependent: :destroy
   has_many :reservations, foreign_key: "guest_id" , dependent: :destroy
+  has_many :fp_ng_time_frames, dependent: :destroy
   has_one :profile, dependent: :destroy
 
   scope :fp_user, -> { where(user_type: "fp") }
