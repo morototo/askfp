@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: askfp_development
+  host: mysqldb
+  username: askfp
+  password: askfp_password
+
+test:
+  <<: *default
+  database: askfp_test
+
+production:
+  <<: *default
+  database: heroku_a4240775e249490
+  username: bd28694b8bc401
+  password: <%= ENV['DATABASE_PASSWORD'] %>
