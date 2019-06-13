@@ -14,9 +14,11 @@ class Reservation < ApplicationRecord
 
   def self.get_free_reservation_time(time, fp_id, target_date)
     except_reservation_time = []
-    reserved_times = Reservation.target_date(target_date).reserved(fp_id).pluck(:start_at)
+    reserved_times     = Reservation.target_date(target_date).reserved(fp_id).pluck(:start_at)
+    cant_reserve_times = target_date.saturday? ? FpNgTimeFrame.mine(fp_id).only_holiday.joins(:time_frame).pluck(:start_at) : 
+                                                    FpNgTimeFrame.mine(fp_id).only_weekday.joins(:time_frame).pluck(:start_at)
     time.each do |t|
-      next if reserved_times.include?(t[0])
+      next if reserved_times.include?(t[0]) || cant_reserve_times.include?(t[0])
       except_reservation_time << t
     end
     except_reservation_time.uniq
