@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_085222) do
+ActiveRecord::Schema.define(version: 2019_06_11_082156) do
 
-  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "fp_ng_time_frames", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "time_frame_id", null: false
+    t.boolean "is_weekday", default: false, null: false
+    t.boolean "is_holiday", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["time_frame_id"], name: "index_fp_ng_time_frames_on_time_frame_id"
+    t.index ["user_id"], name: "index_fp_ng_time_frames_on_user_id"
+  end
+
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", default: ""
     t.text "self_introduction"
@@ -21,7 +32,7 @@ ActiveRecord::Schema.define(version: 2019_06_09_085222) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "fp_id"
     t.bigint "guest_id"
     t.string "start_at"
@@ -33,7 +44,13 @@ ActiveRecord::Schema.define(version: 2019_06_09_085222) do
     t.index ["guest_id"], name: "index_reservations_on_guest_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "time_frames", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "start_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

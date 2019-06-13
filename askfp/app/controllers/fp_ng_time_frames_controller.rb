@@ -1,16 +1,12 @@
 class FpNgTimeFramesController < ApplicationController
+  before_action :authenticate_user!
   def index
     @fp_ng_time_frames = FpNgTimeFrame.mine(current_user)
     @timefarames = TimeFrame.all
   end
 
   def create
-    fp_ng_time_frames = []
-    create_params.each do |id, create_param|
-      fp_ng_time_frames << FpNgTimeFrame.new(create_param)
-    end
-    imp_res = FpNgTimeFrame.import fp_ng_time_frames, on_duplicate_key_update: [:is_weekday, :is_holiday]
-
+    imp_res = FpNgTimeFrame.upsert_fp_timeframe(create_params)
     respond_to do |format|
       if imp_res.num_inserts > 0
         format.html { redirect_to dashboard_index_path, notice: '予約不可時間を登録しました。' }
