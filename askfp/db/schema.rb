@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2019_06_11_082156) do
   create_table "fp_ng_time_frames", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "time_frame_id", null: false
-    t.boolean "is_weekday", default: true, null: false
-    t.boolean "is_holiday", default: true, null: false
+    t.boolean "is_weekday", default: false, null: false
+    t.boolean "is_holiday", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["time_frame_id"], name: "index_fp_ng_time_frames_on_time_frame_id"
