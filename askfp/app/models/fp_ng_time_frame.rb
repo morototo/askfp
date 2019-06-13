@@ -3,6 +3,8 @@ class FpNgTimeFrame < ApplicationRecord
   belongs_to :time_frame
 
   scope :mine, -> user_id{ where(user_id: user_id) }
+  scope :only_holiday, -> { where(is_holiday: true) }
+  scope :only_weekday, -> { where(is_weekday: true) }
 
   def self.upsert_fp_timeframe(upsert_params)
     fp_ng_time_frames = []
