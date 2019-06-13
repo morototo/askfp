@@ -1,0 +1,18 @@
+= form_tag fp_ng_time_frames_path, method: :post do
+  table
+    thead
+      tr
+        th 時間帯
+        th 平日
+        th 休日
+    tbody
+      - @fp_ng_time_frames.each do |fp_ng_time_frame|
+        = fields_for "fp_ng_time_frames[]", fp_ng_time_frame do |fgtf|
+          = fgtf.hidden_field :id, value: fp_ng_time_frame.id
+          = fgtf.hidden_field :user_id, value: current_user.id
+          = fgtf.hidden_field :time_frame_id, value: fp_ng_time_frame.time_frame_id
+          tr
+            td = fp_ng_time_frame.time_frame.start_at
+            td.weekday = fgtf.check_box :is_weekday
+            td.holiday = fgtf.check_box :is_holiday
+  = submit_tag
