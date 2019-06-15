@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
+  before_action :check_is_guest
 
   # GET /reservations
   # GET /reservations.json
