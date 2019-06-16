@@ -52,14 +52,15 @@ RSpec.describe ReservationsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let!(:valid_create_params) { { reservation: FactoryBot.attributes_for(:reservation, fp_id: , guest_id: @guest_user.id, reservation_date: start_at: "12:00" ) } }
-    context 'ログインしている' do
+    let!(:valid_create_params) { { reservation: FactoryBot.attributes_for(:reservation, 
+      fp_id: @fp_user.id, guest_id: @guest_user.id, reservation_date: Time.now().sunday? ? Time.now().yesterday : Time.now(), start_at: "12:00" ) } }
+    context 'ログインしている: ゲスト' do
       before :each do
         sign_in @guest_user
       end
-      it 'ゲスト: 予約が保存される' do
-      end
-      it 'FP: 予約が保存されない' do
+      it '予約が保存される' do
+        post :create, params: valid_create_params
+        expect { Reservation.all.size }.to change { Reservation.all.size }.from(0).to(1)
       end
       it '予約日時がFPの予約不可時間: 予約が保存されない' do
       end
@@ -70,6 +71,13 @@ RSpec.describe ReservationsController, type: :controller do
       it '予約日時が日曜: 予約が保存されない' do
       end
       it '予約日時が既に埋まっている: 予約が保存されない' do
+      end
+    end
+    context 'ログインしている: ホスト' do
+      before :each do
+        sign_in @fp_user
+      end
+      it 'FP: 予約が保存されない' do
       end
     end
     context 'ログインしていない' do
