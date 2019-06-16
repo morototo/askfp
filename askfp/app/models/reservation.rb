@@ -34,8 +34,8 @@ class Reservation < ApplicationRecord
 
   def reservation_time_check
     errors.add(:reservation_date, "既に予約されています。") and return if already_reserved?
-    # errors.add(:reservation_date, "この時間帯は予約ができません") and return if fp_ng_time?
     errors.add(:reservation_date, "日曜日は予約できません。") and return if self.reservation_date.sunday?
+    errors.add(:reservation_date, "この時間帯は予約ができません") and return if fp_ng_time?
     if self.reservation_date.saturday?
       errors.add(:start_at, "時間外の予約はできません。土曜日の予約時間帯は11:00 ~ 15:00です。") unless between_saturday_time?
     else
@@ -47,28 +47,27 @@ class Reservation < ApplicationRecord
     Reservation.where(reservation_date: self.reservation_date.strftime("%Y-%m-%d"), start_at: self.start_at).count > 1
   end
 
-  # def fp_ng_time?
-  #   time_frame_id = Timeframe.find_by(start_at: self.start_at).pluck(:id)
-  #   FpNgTimeFrame.where(user_id: self.user_id, time_frame_id: time_frame_id) > 0
-  # end
+  def fp_ng_time?
+    time_frame = TimeFrame.find_by(start_at: self.start_at)
+    return true if time_frame.nil?
+    if self.reservation_date.saturday?
+      FpNgTimeFrame.where(user_id: self.fp_id, time_frame_id: time_frame.id, is_holiday: true).count > 0
+    else
+      FpNgTimeFrame.where(user_id: self.fp_id, time_frame_id: time_frame.id, is_weekday: true).count > 0
+    end
+  end
 
   def between_saturday_time?
     saturday_day_start_hour = 11
     saturday_day_end_hour   = 14
-    start_time_min_0    = 0
-    start_time_min_30   = 30
     start_time = Time.parse(self.start_at)
-    saturday_day_start_hour <= start_time.hour.to_i && start_time.hour.to_i <= saturday_day_end_hour && 
-      (start_time.min == start_time_min_0 || start_time.min == start_time_min_30)
+    saturday_day_start_hour <= start_time.hour.to_i && start_time.hour.to_i <= saturday_day_end_hour
   end
 
   def between_weekday_time?
     week_day_start_hour = 10
     week_day_end_hour   = 17
-    start_time_min_0    = 0
-    start_time_min_30   = 30
     start_time = Time.parse(self.start_at)
-    (week_day_start_hour <= start_time.hour.to_i && start_time.hour.to_i <= week_day_end_hour) && 
-      (start_time.min == start_time_min_0 || start_time.min == start_time_min_30)
+    (week_day_start_hour <= start_time.hour.to_i && start_time.hour.to_i <= week_day_end_hour)
   end
 end
