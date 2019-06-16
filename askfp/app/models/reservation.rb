@@ -7,7 +7,7 @@ class Reservation < ApplicationRecord
   validates :start_at, presence: true
   validates :reservation_date, presence: true
 
-  validate :reservation_time_check, unless: -> { Rails.env == "test" }
+  validate :reservation_time_check
 
   scope :reserved, -> fp_id { where(fp_id: fp_id) }
   scope :target_date, -> target_date { where(reservation_date: target_date) }
