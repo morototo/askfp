@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_reservation, only: [:show, :edit, :update, :destroy]
+  before_action :check_is_guest
 
   # GET /reservations
   # GET /reservations.json
@@ -28,7 +29,11 @@ class ReservationsController < ApplicationController
       if @reservation.save
         format.html { redirect_to dashboard_index_path, notice: '予約が完了しました。' }
       else
-        format.html { render :new, alert: '予約出来ませんでした。再度お試し下さい。' }
+        @reservation.errors.full_messages.each do |error|
+          flash[:alert] = error
+        end
+        @reservation.attributes = create_params
+        format.html { render :new }
       end
     end
   end

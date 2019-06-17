@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  database: heroku_a4240775e249490
-  username: bd28694b8bc401
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  database: askfp_production
+  username: askfp
+  password: <%= ENV['ASKFP_DATABASE_PASSWORD'] %>
