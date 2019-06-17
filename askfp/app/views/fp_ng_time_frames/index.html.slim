@@ -8,6 +8,8 @@ h5 予約できない時間帯にチェックマークを入れて保存して�
         th 休日
     tbody
       - @fp_ng_time_frames.each do |fp_ng_time_frame|
+        - next unless is_between_weekday_time?(fp_ng_time_frame.time_frame.start_at) || is_between_holiday_time?(fp_ng_time_frame.time_frame.start_at)
+
         = fields_for "fp_ng_time_frames[]", fp_ng_time_frame do |fgtf|
           = fgtf.hidden_field :id, value: fp_ng_time_frame.id
           = fgtf.hidden_field :user_id, value: current_user.id
@@ -15,5 +17,7 @@ h5 予約できない時間帯にチェックマークを入れて保存して�
           tr
             td = fp_ng_time_frame.time_frame.start_at
             td.weekday = fgtf.check_box :is_weekday
-            td.holiday = fgtf.check_box :is_holiday
+            td.holiday 
+              - if is_between_holiday_time?(fp_ng_time_frame.time_frame.start_at)
+                = fgtf.check_box :is_holiday
   = submit_tag
