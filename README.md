@@ -27,6 +27,7 @@ $ docker exec -it askfp /bin/bash
 $ cd /home/git/askfp
 $ bundle install
 $ bundle exec rake db:migrate
+$ bundle exec rake default_data:set #初期データ投入
 $ rails s -b 0.0.0.0 # Rails 起動
 ```
 
