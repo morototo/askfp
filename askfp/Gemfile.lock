@@ -99,11 +99,11 @@ GEM
       request_store (>= 1.0)
     erubi (1.8.0)
     execjs (2.7.0)
-    factory_bot (5.0.2)
-      activesupport (>= 4.2.0)
-    factory_bot_rails (5.0.2)
-      factory_bot (~> 5.0.2)
-      railties (>= 4.2.0)
+    factory_bot (4.8.2)
+      activesupport (>= 3.0.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
+      railties (>= 3.0.0)
     faker (1.9.3)
       i18n (>= 0.7)
     ffi (1.11.1)
@@ -225,6 +225,8 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
+    shoulda-matchers (4.1.0)
+      activesupport (>= 4.2.0)
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -300,6 +302,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   seed-fu
   selenium-webdriver
+  shoulda-matchers
   simple_form
   slim-rails
   spring
