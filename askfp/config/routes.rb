@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :fp_ng_time_frames, only: [:index, :create]
-  resources :profiles
+  resources :profiles, only: [:edit, :update]
   resources :dashboard, only: [:index]
   resources :reservations do
     collection do
