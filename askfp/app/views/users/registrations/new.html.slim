@@ -1,5 +1,5 @@
 h2
-  = registration_title(@user_type)
+  | 新規登録
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = f.hidden_field :user_type, value: @user_type
   = render "devise/shared/error_messages", resource: resource
