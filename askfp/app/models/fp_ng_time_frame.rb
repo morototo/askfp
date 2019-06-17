@@ -1,6 +1,6 @@
 class FpNgTimeFrame < ApplicationRecord
   belongs_to :user
-  belongs_to :time_frame, optional: true, required: true
+  belongs_to :time_frame
 
   scope :mine, -> user_id{ where(user_id: user_id) }
   scope :only_holiday, -> { where(is_holiday: true) }
