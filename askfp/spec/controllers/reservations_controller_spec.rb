@@ -53,7 +53,7 @@ RSpec.describe ReservationsController, type: :controller do
 
   describe 'POST #create' do
     let!(:valid_create_params) { { reservation: FactoryBot.attributes_for(:reservation,
-      fp_id: @fp_user.id, guest_id: @guest_user.id, reservation_date: Time.now().sunday? ? Time.now().yesterday : Time.now(), start_at: "12:00" ) } }
+      fp_id: @fp_user.id, guest_id: @guest_user.id, reservation_date: Time.now.tomorrow.sunday? ? Time.now.yesterday : Time.now.tomorrow, start_at: "12:00" ) } }
     context 'ログインしている: ホスト' do
       before :each do
         sign_in @fp_user
@@ -83,7 +83,7 @@ RSpec.describe ReservationsController, type: :controller do
       end
       it '予約日時が平日の時間外（10:00~18:00以外）: 予約が保存されない : 9:00の場合' do
         valid_already_reserved_create_params = valid_create_params
-        targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
+        targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "09:00"
@@ -93,7 +93,7 @@ RSpec.describe ReservationsController, type: :controller do
       end
       it '予約日時が平日の時間外（10:00~18:00以外）: 予約が保存されない : 18:00の場合' do
         valid_already_reserved_create_params = valid_create_params
-        targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
+        targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "18:00"
@@ -103,7 +103,7 @@ RSpec.describe ReservationsController, type: :controller do
       end
       it '予約日時が平日の時間外（10:00~18:00以外）: 予約が保存されない : 09:45の場合' do
         valid_already_reserved_create_params = valid_create_params
-        targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
+        targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "18:00"
@@ -113,7 +113,7 @@ RSpec.describe ReservationsController, type: :controller do
       end
       it '予約日時が平日の時間外（10:00~18:00以外）: 予約が保存されない : 17:45の場合' do
         valid_already_reserved_create_params = valid_create_params
-        targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
+        targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "18:00"
@@ -168,9 +168,8 @@ RSpec.describe ReservationsController, type: :controller do
       end
       it '予約日時が既に埋まっている: 予約が保存されない' do
         valid_already_reserved_create_params = valid_create_params
-        targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
+        targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
-        FactoryBot.create(:reservation, :set_reserved_day, :set_start_at, fp: @fp_user, guest: @guest_user, r_date: targer_time)
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "12:30"
         expect {
