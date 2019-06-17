@@ -33,20 +33,20 @@ RSpec.describe ReservationsController, type: :controller do
     end
   end
 
-  describe 'GET #index' do
+  describe 'GET #show' do
     context 'ログインしている' do
       before :each do
         sign_in @guest_user
       end
       it '予約画面が表示できる' do
-        get :index
-        expect(response).to render_template :index
+        get :show, params: {id: @guest_user.profile.id}
+        expect(response).to render_template :show
       end
     end
     context 'ログインしていない' do
       it '予約画面が表示できない' do
-        get :index
-        expect(response).not_to render_template :index
+        get :show, params: {id: @guest_user.profile.id}
+        expect(response).not_to render_template :show
       end
     end
   end
