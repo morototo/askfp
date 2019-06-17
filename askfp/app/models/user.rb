@@ -11,7 +11,7 @@ class User < ApplicationRecord
   scope :guest_user, -> { where(user_type: "guest") }
 
   after_create :create_profile
-  after_create :create_fp_ng_time_frames
+  after_create :create_fp_ng_time_frames, if: :is_fp?
 
   def is_fp?
     self.user_type == "fp"
