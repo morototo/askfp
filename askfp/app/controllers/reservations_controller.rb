@@ -21,7 +21,7 @@ class ReservationsController < ApplicationController
           flash[:alert] = error
         end
         @reservation.attributes = create_params
-        format.html { render :new }
+        format.html { redirect_back(fallback_location: root_path) }
       end
     end
   end
