@@ -25,20 +25,22 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   describe 'POST #update' do
-    let!(:valid_update_params) { { profile: FactoryBot.attributes_for(:profile, name: "CHANGE_TESTNAME", self_introduction: "CHANGE_TESTSELFINTRODUCTION"), id: @fp_user.profile.id } }
+    let!(:valid_update_params) { { profile: FactoryBot.attributes_for(:profile, name: "CHANGE_TESTNAME"), id: @fp_user.profile.id } }
     context 'ログインしている' do
       before :each do
         sign_in @fp_user
       end
       it 'プロフィールが編集できる' do
         put :update, params: valid_update_params
-        expect(assigns(:profile)).to eq @fp_user.profile
+        @fp_user.reload
+        expect(@fp_user.profile.name).to eq "CHANGE_TESTNAME"
       end
     end
     context 'ログインしていない' do
       it 'プロフィールが編集出来ないこと' do
         put :update, params: valid_update_params
-        expect(assigns(:profile)).not_to eq @fp_user.profile
+        @fp_user.reload
+        expect(@fp_user.profile.name).not_to eq "CHANGE_TESTNAME"
       end
     end
   end

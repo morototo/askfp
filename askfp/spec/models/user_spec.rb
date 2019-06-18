@@ -4,12 +4,6 @@ RSpec.describe User, type: :model do
   let(:fp) { FactoryBot.create(:user, :fp) }
   let(:guest) { FactoryBot.create(:user, :guest) }
 
-  before :each do
-    targer_time = Time.now.sunday? ? Time.now.tomorrow : Time.now
-    targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
-    FactoryBot.create(:reservation, :set_reserved_day, :set_start_at, fp: fp, guest: guest, r_date: targer_time)
-  end
-
   describe 'associations' do
     it "FPユーザの場合: has_one: Profile" do
       expect(fp).to have_one(:profile)
