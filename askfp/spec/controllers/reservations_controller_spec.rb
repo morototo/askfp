@@ -170,6 +170,7 @@ RSpec.describe ReservationsController, type: :controller do
         valid_already_reserved_create_params = valid_create_params
         targer_time = Time.now.tomorrow.sunday? ? Time.now.since(2.days) : Time.now.tomorrow
         targer_time = targer_time.saturday? ? targer_time.yesterday : targer_time
+        FactoryBot.create(:reservation, :set_reserved_day, :set_start_at, fp: @fp_user, guest: @guest_user, r_date: targer_time)
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "12:30"
         expect {
