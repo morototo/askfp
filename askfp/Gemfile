@@ -24,6 +24,8 @@ gem 'active_decorator'
 gem 'draper'
 gem 'seed-fu'
 gem 'activerecord-import'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
