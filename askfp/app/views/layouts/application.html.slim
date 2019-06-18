@@ -10,12 +10,20 @@ html
   body
     = render partial: 'shared/header'
     - if flash[:info]
-      = flash[:info]
+      .msg.msg-info
+        div
+          = flash[:info]
     - if flash[:notice]
-      = flash[:notice]
+      .msg.msg-info
+        div
+          = flash[:notice]
     - if flash[:warning]
-      = flash[:warning]
+      .msg.msg-alert
+        div
+          = flash[:warning]
     - if flash[:alert]
-      = flash[:alert]
+      .msg.msg-error
+        div
+          = flash[:alert]
     = yield
     = render partial: 'shared/fotter'

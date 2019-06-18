@@ -1,10 +1,10 @@
-= simple_form_for(@profile) do |f|
+= simple_form_for @profile, :html=> { class: 'col m6 offset-m3 s12' } do |f|
   .row
-    h5 名前
+    h6 名前
     = f.input_field :name
 
   .row
-    h5 自己紹介
+    h6 自己紹介
     = f.input_field :self_introduction
 
   = f.submit "プロフィールを変更する", class: "waves-effect waves-light btn"
