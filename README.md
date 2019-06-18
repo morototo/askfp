@@ -13,6 +13,15 @@
 - Docker Compose version 1.22.0
 
 ```ruby
+docker-compose.ymlを修正してください。
+$ vi docker/docker-compose.yml
+
+左部分をaskfpがあるパスに書き換えてください。
+- /to/your/path/askfp/:/home/git/askfp/:z
+
+※ git cloneしたディレクトリパスが /var/www/ の場合下記に書き換え
+- /var/www/askfp/askfp/:/home/git/askfp/:z
+
 $ cd docker
 $ docker-compose up -d 
 $ docker ps #コンテナが作成されていることを確認
