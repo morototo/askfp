@@ -2,7 +2,7 @@
 - Rails version: 5.2.3
 - Ruby version: 2.6.3
 - Database adapter: mysql
-- MySQL version: 5.7
+- MySQL version: 5.7.26
 
 
 # 環境構築
@@ -41,3 +41,6 @@ $ bundle exec rails s -b 0.0.0.0 # Rails 起動
 ```
 
 ブラウザにてlocalhost:3000で表示されるか確認
+
+Heroku URL
+https://askfp.herokuapp.com/
