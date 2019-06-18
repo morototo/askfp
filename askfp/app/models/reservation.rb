@@ -7,8 +7,6 @@ class Reservation < ApplicationRecord
   validates :start_at, presence: true
   validates :reservation_date, presence: true
 
-  validate :reservation_time_check
-
   scope :reserved, -> fp_id { where(fp_id: fp_id) }
   scope :target_date, -> target_date { where(reservation_date: target_date) }
 
@@ -27,7 +25,7 @@ class Reservation < ApplicationRecord
   end
 
   def set_end_at
-    frame_min  = (60 * 30) # 30分
+    frame_min  = (60 * 30)
     self.end_at = (Time.parse(self.start_at) + frame_min).strftime("%H:%M")
     save!
   end
