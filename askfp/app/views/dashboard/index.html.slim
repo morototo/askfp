@@ -1,6 +1,6 @@
 ul
   li
-    = link_to "予約一覧", reservations_path
+    = link_to "予約一覧", reservation_path(current_user)
   li
     = link_to "プロフィール変更", edit_profile_path(current_user)
   - if current_user.is_fp?

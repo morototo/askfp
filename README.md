@@ -27,7 +27,8 @@ $ docker exec -it askfp /bin/bash
 $ cd /home/git/askfp
 $ bundle install
 $ bundle exec rake db:migrate
-$ rails s -b 0.0.0.0 # Rails 起動
+$ bundle exec rake default_data:set #初期データ投入
+$ bundle exec rails s -b 0.0.0.0 # Rails 起動
 ```
 
-ブラウザにてlocalhost:3000でRailsが表示されるか確認
+ブラウザにてlocalhost:3000で表示されるか確認
