@@ -12,7 +12,7 @@ class Reservation < ApplicationRecord
   scope :reserved, -> fp_id { where(fp_id: fp_id) }
   scope :target_date, -> target_date { where(reservation_date: target_date) }
 
-  after_create :set_end_at
+  before_create :set_end_at
 
   def self.get_free_reservation_time(time, fp_id, target_date)
     except_reservation_time = []
@@ -29,7 +29,6 @@ class Reservation < ApplicationRecord
   def set_end_at
     frame_min  = (60 * 30) # 30分
     self.end_at = (Time.parse(self.start_at) + frame_min).strftime("%H:%M")
-    save!
   end
 
   def reservation_time_check
