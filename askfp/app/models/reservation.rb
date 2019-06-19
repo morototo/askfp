@@ -33,7 +33,7 @@ class Reservation < ApplicationRecord
   end
 
   def reservation_time_check
-    errors.add(:reservation_date, "予約可能日は明日以降可能です。") and return if before_today?
+    errors.add(:reservation_date, "予約は明日以降可能です。") and return if before_today?
     errors.add(:reservation_date, "既に予約されています。") and return if already_reserved?
     errors.add(:reservation_date, "日曜日は予約できません。") and return if self.reservation_date.sunday?
     errors.add(:reservation_date, "この時間帯は予約ができません") and return if fp_ng_time?
