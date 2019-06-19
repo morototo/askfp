@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 2019_06_11_082156) do
   end
 
   create_table "reservations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "fp_id"
-    t.bigint "guest_id"
-    t.string "start_at"
-    t.string "end_at"
-    t.date "reservation_date"
+    t.bigint "fp_id", null: false
+    t.bigint "guest_id", null: false
+    t.string "start_at", null: false
+    t.string "end_at", null: false
+    t.date "reservation_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["fp_id"], name: "index_reservations_on_fp_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_06_11_082156) do
   end
 
   create_table "time_frames", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "start_at"
+    t.string "start_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_06_11_082156) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "user_type", default: "guest"
+    t.string "user_type", default: "guest", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
