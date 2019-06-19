@@ -45,7 +45,7 @@ class Reservation < ApplicationRecord
   end
 
   def before_today?
-    self.reservation_date <= Time.now 
+    self.reservation_date.blank? || self.reservation_date <= Time.now 
   end
 
   def already_reserved?
