@@ -20,4 +20,6 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
+
+   get '*unmatched_route' => redirect('/')
 end

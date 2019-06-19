@@ -12,7 +12,7 @@ class Reservation < ApplicationRecord
   scope :reserved, -> fp_id { where(fp_id: fp_id) }
   scope :target_date, -> target_date { where(reservation_date: target_date) }
 
-  after_create :set_end_at
+  before_create :set_end_at
 
   def self.get_free_reservation_time(time, fp_id, target_date)
     except_reservation_time = []
@@ -29,11 +29,10 @@ class Reservation < ApplicationRecord
   def set_end_at
     frame_min  = (60 * 30) # 30分
     self.end_at = (Time.parse(self.start_at) + frame_min).strftime("%H:%M")
-    save!
   end
 
   def reservation_time_check
-    errors.add(:reservation_date, "予約可能日は明日以降可能です。") and return if before_today?
+    errors.add(:reservation_date, "予約は明日以降可能です。") and return if before_today?
     errors.add(:reservation_date, "既に予約されています。") and return if already_reserved?
     errors.add(:reservation_date, "日曜日は予約できません。") and return if self.reservation_date.sunday?
     errors.add(:reservation_date, "この時間帯は予約ができません") and return if fp_ng_time?
@@ -45,11 +44,11 @@ class Reservation < ApplicationRecord
   end
 
   def before_today?
-    self.reservation_date <= Time.now 
+    self.reservation_date.blank? || self.reservation_date <= Time.now 
   end
 
   def already_reserved?
-    Reservation.where(reservation_date: self.reservation_date.strftime("%Y-%m-%d"), start_at: self.start_at).count > 1
+    Reservation.where(reservation_date: self.reservation_date.strftime("%Y-%m-%d"), start_at: self.start_at).count > 0
   end
 
   def fp_ng_time?

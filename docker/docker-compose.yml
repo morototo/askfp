@@ -30,7 +30,7 @@ services:
       askfp_net:
         ipv4_address: 172.20.0.2
     volumes:
-     - /Users/kazukimorokado/workspace/askfp/askfp/:/home/git/askfp/:z
+     - /to/your/path/askfp/:/home/git/askfp/:z
     depends_on:
      - mysqldb
     tty: true

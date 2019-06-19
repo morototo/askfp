@@ -2,7 +2,7 @@
 - Rails version: 5.2.3
 - Ruby version: 2.6.3
 - Database adapter: mysql
-- MySQL version: 5.7
+- MySQL version: 5.7.26
 
 
 # 環境構築
@@ -13,6 +13,15 @@
 - Docker Compose version 1.22.0
 
 ```ruby
+docker-compose.ymlを修正してください。
+$ vi docker/docker-compose.yml
+
+左部分をaskfpがあるパスに書き換えてください。
+- /to/your/path/askfp/:/home/git/askfp/:z
+
+※ git cloneしたディレクトリパスが /var/www/ の場合下記に書き換え
+- /var/www/askfp/askfp/:/home/git/askfp/:z
+
 $ cd docker
 $ docker-compose up -d 
 $ docker ps #コンテナが作成されていることを確認
@@ -32,3 +41,6 @@ $ bundle exec rails s -b 0.0.0.0 # Rails 起動
 ```
 
 ブラウザにてlocalhost:3000で表示されるか確認
+
+Heroku URL
+https://askfp.herokuapp.com/
