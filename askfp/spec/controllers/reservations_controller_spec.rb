@@ -53,7 +53,7 @@ RSpec.describe ReservationsController, type: :controller do
 
   describe 'POST #create' do
     let!(:valid_create_params) { { reservation: FactoryBot.attributes_for(:reservation,
-      fp_id: @fp_user.id, guest_id: @guest_user.id, reservation_date: Time.now.tomorrow.sunday? ? Time.now.yesterday : Time.now.tomorrow, start_at: "12:00", end_at: "12:30" ) } }
+      fp_id: @fp_user.id, guest_id: @guest_user.id, reservation_date: Time.now.tomorrow.sunday? ? Time.now.yesterday : Time.now.tomorrow, start_at: "12:00" ) } }
     context 'ログインしている: ホスト' do
       before :each do
         sign_in @fp_user
@@ -173,7 +173,6 @@ RSpec.describe ReservationsController, type: :controller do
         FactoryBot.create(:reservation, :set_reserved_day, :set_start_at, fp: @fp_user, guest: @guest_user, r_date: targer_time)
         valid_already_reserved_create_params[:reservation][:reservation_date] = targer_time
         valid_already_reserved_create_params[:reservation][:start_at] = "12:30"
-        valid_already_reserved_create_params[:reservation][:end_at] = "13:00"
         expect {
           post :create, params: valid_create_params
         }.not_to change(Reservation, :count)
