@@ -12,7 +12,10 @@ development:
 
 test:
   <<: *default
-  database: askfp_test
+  database: askfp_development
+  host: mysqldb
+  username: askfp
+  password: askfp_password
 
 production:
   <<: *default
