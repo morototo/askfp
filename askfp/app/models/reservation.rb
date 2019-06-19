@@ -48,7 +48,7 @@ class Reservation < ApplicationRecord
   end
 
   def already_reserved?
-    Reservation.where(reservation_date: self.reservation_date.strftime("%Y-%m-%d"), start_at: self.start_at).count > 1
+    Reservation.where(reservation_date: self.reservation_date.strftime("%Y-%m-%d"), start_at: self.start_at).count > 0
   end
 
   def fp_ng_time?
